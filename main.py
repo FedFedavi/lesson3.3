@@ -20,6 +20,15 @@ target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
+def display_score(score):
+    # Создание текста
+    score_text = font.render(f"Score: {score}", True, "white")
+    # Отображение текста в верхнем левом углу
+    screen.blit(score_text, (10, 10))
+
+font = pygame.font.Font(None, 74)
+score = 0
+
 running = True
 while running:
     screen.fill(color)
@@ -29,11 +38,12 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
+                score += 1
                 target_x = random.randint(0, SCREEN_WIDTH - target_width)
                 target_y = random.randint(0, SCREEN_HEIGHT - target_height)
                 #color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
                 # Изменение цвета фона при каждом попадании
-
+    display_score(score)
     screen.blit(target_image, (target_x, target_y))
     pygame.display.update()
 
